@@ -167,12 +167,21 @@ public static void main(String[] args) {
 
 **思路**
 https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Quicksort-diagram.svg/200px-Quicksort-diagram.svg.png
+有争议
+There can be many ways to do partition, following pseudo code adopts the method given in CLRS book. The logic is simple, 
+we start from the leftmost element and keep track of index of smaller (or equal to) elements as i. While traversing, if we 
+find a smaller element, we swap current element with arr[i]. Otherwise we ignore current element.
+
+https://www.geeksforgeeks.org/quick-sort/
+
 **优点**
 
 优点：极快，数据移动少；
 缺点：不稳定。
 
 **时间复杂度**
+时间复杂度O(N)
+空间复杂度O(nlogn)
 ** NOTE **
 
 快速排序是二叉查找树（二叉搜索树）的一个空间最优化版本。不是循序地把数据项插入到一个明确的树中，而是由快速排序组织这些数据项到一个由递归调用所隐含的树中。这两个算法完全地产生相同的比较次数，但是顺序不同。对于排序算法的稳定性指标，原地分区版本的快速排序算法是不稳定的。其他变种是可以通过牺牲性能和空间来维护稳定性的。
@@ -209,50 +218,110 @@ https://zh.wikipedia.org/wiki/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F
 缺点：归并排序占用了大量的内存空间（占用了和原数组等长的空间，一旦待排数组的量非常巨大的话，这完全是致命的缺点）里进行排序操作，所以来说，归并排序在大数据的时候很容易造成内存的溢出。
 
 **时间复杂度**
+时间O(nlogn),空间为O(1)
 
 
 # 堆排序
-
+https://www.youtube.com/watch?v=MtQL_ll5KhQ
 **原理**
-
+堆排序（英语：Heapsort）是指利用堆这种数据结构所设计的一种排序算法。堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。
+。
 **思路**
+在堆的数据结构中，堆中的最大值总是位于根节点(在优先队列中使用堆的话堆中的最小值位于根节点)。堆中定义以下几种操作：
+最大堆调整（Max_Heapify）：将堆的末端子节点作调整，使得子节点永远小于父节点
+创建最大堆（Build_Max_Heap）：将堆所有数据重新排序
+堆排序（HeapSort）：移除位在第一个数据的根节点，并做最大堆调整的递归运算
 
 **优点**
 
 
 **时间复杂度**
-
+堆排序的平均时间复杂度为 O(nlogn)，空间复杂度为 O(1)
 
 # 希尔排序
 
 **原理**
+希尔排序，也称递减增量排序算法，是插入排序的一种更高效的改进版本。希尔排序是非稳定排序算法。
+希尔排序是基于插入排序的以下两点性质而提出改进方法的：
+*插入排序在对几乎已经排好序的数据操作时，效率高，即可以达到线性排序的效率
+*但插入排序一般来说是低效的，因为插入排序每次只能将数据移动一位
+
 
 **思路**
-
+希尔排序是将待排序的数组元素 按下标的一定增量分组 ，分成多个子序列，然后对各个子序列进行直接插入排序算法排序；然后依次缩减增量再进行排序，直到增量为1时，进行最后一次直接插入排序，排序结束。
 **优点**
-
+希尔算法在最坏的情况下和平均情况下执行效率相差不是很多，与此同时快速排序在最坏的情况下执行的效率会非常差。希尔排序没有快速排序算法快，因此中等大小规模表现良好，对规模非常大的数据排序不是最优选择。
+（注：专家们提倡，几乎任何排序工作在开始时都可以用希尔排序，若在实际使用中证明它不够快，再改成快速排序这样更高级的排序算法。）
 
 **时间复杂度**
+希尔排序耗时的操作有：比较 + 后移赋值。
 
+时间复杂度情况如下：（n指待排序序列长度）
+1) 最好情况：序列是正序排列，在这种情况下，需要进行的比较操作需（n-1）次。后移赋值操作为0次。即O(n)
+2) 最坏情况：O(nlog2n)。
+3) 渐进时间复杂度（平均时间复杂度）：O(nlog2n)
+
+希尔排序是按照不同步长对元素进行插入排序，当刚开始元素很无序的时候，步长最大，所以插入排序的元素个数很少，速度很快；当元素基本有序了，步长很小，插入排序对于有序的序列效率很高。所以，希尔排序的时间复杂度会比O(n²)好一些。
+希尔算法的性能与所选取的增量（分组长度）序列有很大关系。只对特定的待排序记录序列，可以准确地估算比较次数和移动次数。想要弄清比较次数和记录移动次数与增量选择之间的关系，并给出完整的数学分析，至今仍然是数学难题。
 
 # 计数排序
+**https://www.youtube.com/watch?v=7zuGmKfUt7s**非常清楚的讲解
+Time Complexity: O(n+k) where n is the number of elements in input array and k is the range of input.
+Auxiliary Space: O(n+k)
+
+Points to be noted:
+1. Counting sort is efficient if the range of input data is not significantly greater than the number of objects to be sorted. Consider the situation where the input sequence is between range 1 to 10K and the data is 10, 5, 10K, 5K.
+2. It is not a comparison based sorting. It running time complexity is O(n) with space proportional to the range of data.
+3. It is often used as a sub-routine to another sorting algorithm like radix sort.
+4. Counting sort uses a partial hashing to count the occurrence of the data object in O(1).
+5. Counting sort can be extended to work for negative inputs also.
+
+
 **原理**
+计数排序（Counting sort）是一种稳定的线性时间排序算法。计数排序使用一个额外的数组 C ，其中第i个元素是待排序数组i的元素的个数。然后根据数组  C 来将 A中的元素排到正确的位置。
 
 **思路**
+由于用来计数的数组 C 的长度取决于待排序数组中数据的范围（等于待排序数组的最大值与最小值的差加上1），这使得计数排序对于数据范围很大的数组，需要大量时间和内存。例如：计数排序是用来排序0到100之间的数字的最好的算法，但是它不适合按字母顺序排序人名。但是，计数排序可以用在基数排序算法中，能够更有效的排序数据范围很大的数组。
+
+通俗地理解，例如有10个年龄不同的人，统计出有8个人的年龄比A小，那A的年龄就排在第9位，用这个方法可以得到其他每个人的位置，也就排好了序。当然，年龄有重复时需要特殊处理（保证稳定性），这就是为什么最后要反向填充目标数组，以及将每个数字的统计减去1的原因。算法的步骤如下：
+
+找出待排序的数组中最大和最小的元素
+统计数组中每个值为 i的元素出现的次数，存入数组C 的第 i项
+对所有的计数累加（从 C 中的第一个元素开始，每一项和前一项相加）
+反向填充目标数组：将每个元素 i放在新数组的第  C[i]}项，每放一个元素就将C[i]减去1
+
 
 **优点**
 
 
 **时间复杂度**
-
+当输入的元素是 0 到k之间的整数时，它的运行时间是 {\displaystyle \Theta (n+k)} {\displaystyle \Theta (n+k)}。计数排序不是比较排序，排序的速度快于任何比较排序算法。
 
 # 基数排序
-**原理**
+https://www.youtube.com/watch?v=nu4gDuFabIM
+https://www.geeksforgeeks.org/radix-sort/
 
+**原理**
+https://zh.wikipedia.org/wiki/%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F
+将整数按位数切割成不同的数字，然后按每个位数分别比较。由于整数也可以表达字符串（比如名字或日期）和特定格式的浮点数，所以基数排序也不是只能使用于整数。
+它是这样实现的：将所有待比较数值（正整数）统一为同样的数位长度，数位较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后，数列就变成一个有序序列。
 **思路**
 
 **优点**
+基数排序的时间复杂度是 O(kn)，其中n是排序元素个数，k是数字位数。注意这不是说这个时间复杂度一定优于O(nlogn)， k的大小取决于数字位的选择（比如比特位数），和待排序数据所属数据类型的全集的大小；k决定了进行多少轮处理，而 n是每轮处理的操作数目。
 
+以排序 n个不同整数来举例，假定这些整数以B为底，这样每位数都有 B个不同的数字, k=\log _{B}N
+
+
+N是待排序数据类型全集的势。虽然有B个不同的数字，需要B个不同的桶，但在每一轮处理中，判断每个待排序数据项只需要一次计算确定对应数位的值，因此在每一轮处理的时候都需要平均 n次操作来把整数放到合适的桶中去，所以就有：
+
+k\approx= log _{B}N
+所以，基数排序的平均时间T就是：
+T\approx= log _{B}(N)\cdot n}
+
+其中前一项是一个与输入数据无关的常数，当然该项不一定小于 log n。
+
+如果考虑和比较排序进行对照，基数排序的形式复杂度虽然不一定更小，但由于不进行比较，因此其基本操作的代价较小，而且在适当选择的 B之下, k一般不大于log n，所以基数排序一般要快过基于比较的排序，比如快速排序。
 
 **时间复杂度**
 
