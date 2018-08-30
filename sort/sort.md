@@ -249,6 +249,27 @@ https://www.youtube.com/watch?v=MtQL_ll5KhQ
 
 **思路**
 希尔排序是将待排序的数组元素 按下标的一定增量分组 ，分成多个子序列，然后对各个子序列进行直接插入排序算法排序；然后依次缩减增量再进行排序，直到增量为1时，进行最后一次直接插入排序，排序结束。
+
+import java.util.*;
+
+public class ShellSort {
+    public int[] shellSort(int[] A, int n) {
+        // write code here
+        if (A==null || n <2)
+            return A;
+        for (int gap = n/2;gap>0;gap/=2){
+            for (int i= gap;i<n;i+=1){
+                int temp = A[i];
+                int j;
+                for (j =i;j>=gap&& A[j-gap]>temp;j-=gap)
+                    A[j] = A[j-gap];
+                A[j] = temp;
+            }
+        }
+        return A;
+    }
+}
+
 **优点**
 希尔算法在最坏的情况下和平均情况下执行效率相差不是很多，与此同时快速排序在最坏的情况下执行的效率会非常差。希尔排序没有快速排序算法快，因此中等大小规模表现良好，对规模非常大的数据排序不是最优选择。
 （注：专家们提倡，几乎任何排序工作在开始时都可以用希尔排序，若在实际使用中证明它不够快，再改成快速排序这样更高级的排序算法。）
@@ -290,6 +311,43 @@ Points to be noted:
 对所有的计数累加（从 C 中的第一个元素开始，每一项和前一项相加）
 反向填充目标数组：将每个元素 i放在新数组的第  C[i]}项，每放一个元素就将C[i]减去1
 
+import java.util.*;
+
+public class CountingSort {
+    public int[] countingSort(int[] A, int n) {
+        // write code here
+        if (A == null || n<2){
+            return A;
+        }
+        int min = A[0];
+        int max = A[0];
+        //遍历数组，找到最大值和最小值
+        for (int i = 0;i< n;i++){
+            if (max < A[i])
+                max = A[i];
+            if (min > A[i])
+                min = A[i];
+        }
+        //根据最大值最小值建立一个数组表示桶
+        int temp[] = new int [max-min+1];
+        //遍历数组中的值放入桶中，同时桶数组记录数量,这时用桶数组的下标表示目标数组和最小值的差别,桶数组中存放数量
+        for (int i = 0;i<n;i++){
+            temp[A[i]-min] ++;
+        }
+        //存放完成后将桶中数字依次倒出,
+        int index = 0; //表示下标
+        for(int i=0;i<max-min+1;i++){
+            while(temp[i] > 0){
+                //从桶中取出一个树
+                A[index] = i + min;
+                index++;
+                //桶中数量减一
+                temp[i]--;
+            }
+        }
+        return A;
+    }
+}
 
 **优点**
 
@@ -306,7 +364,31 @@ https://zh.wikipedia.org/wiki/%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F
 将整数按位数切割成不同的数字，然后按每个位数分别比较。由于整数也可以表达字符串（比如名字或日期）和特定格式的浮点数，所以基数排序也不是只能使用于整数。
 它是这样实现的：将所有待比较数值（正整数）统一为同样的数位长度，数位较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后，数列就变成一个有序序列。
 **思路**
+import java.util.*;
 
+public class RadixSort {
+    public int[] radixSort(int[] A, int n) {
+        // write code here
+        int[][] tmp = new int[10][n];
+        int[] count = new int[10];
+        int i = 1;
+        while(i <1000){
+            for(int j = 0; j < n; j++){
+                int pos = A[j]/i%10;
+                tmp[pos][count[pos]++] = A[j];
+            }
+            int index = 0;
+            for(int k = 0;k<10;k++){
+                for(int m = 0;m<count[k];m++){
+                    A[index++] = tmp[k][m];
+                }
+                count[k] = 0;
+            }
+            i *= 10;
+        }
+        return A;
+    }
+}
 **优点**
 基数排序的时间复杂度是 O(kn)，其中n是排序元素个数，k是数字位数。注意这不是说这个时间复杂度一定优于O(nlogn)， k的大小取决于数字位的选择（比如比特位数），和待排序数据所属数据类型的全集的大小；k决定了进行多少轮处理，而 n是每轮处理的操作数目。
 
