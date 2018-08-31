@@ -174,6 +174,45 @@ find a smaller element, we swap current element with arr[i]. Otherwise we ignore
 
 https://www.geeksforgeeks.org/quick-sort/
 
+import java.util.*;
+
+public class QuickSort {
+    public int[] quickSort(int[] A, int n) {
+        // write code here
+        if(A== null || n < 2)
+            return A;
+        sort(A,0,n-1);
+        return A;
+    }
+    private void sort(int []A,int low ,int high){
+        if( low < high){
+            int pi = partition(A,low,high);
+            sort(A,low,pi-1);//before pi
+            sort(A,pi+1,high);// After pi
+        }
+    }
+    public int partition(int[]A,int low,int high){
+        int pivot = A[high];
+        int i = (low-1);//index of smaller element
+        for(int j= low;j<high;j++){
+            //如果当前元素小于等于基准元素
+            if (A[j]<= pivot)
+            {
+                i++;
+                //swap arr[i] and arr[j]
+                int temp = A[i];
+                A[i] = A[j];
+                A[j] = temp;
+            }
+        }
+        //交换A[i+1]和A[high]
+        int temp = A[i+1];
+        A[i+1] = A[high];
+        A[high] = temp;
+        return i+1;
+    }
+}
+
 **优点**
 
 优点：极快，数据移动少；
@@ -231,6 +270,50 @@ https://www.youtube.com/watch?v=MtQL_ll5KhQ
 最大堆调整（Max_Heapify）：将堆的末端子节点作调整，使得子节点永远小于父节点
 创建最大堆（Build_Max_Heap）：将堆所有数据重新排序
 堆排序（HeapSort）：移除位在第一个数据的根节点，并做最大堆调整的递归运算
+
+
+import java.util.*;
+
+public class HeapSort {
+    public int[] heapSort(int[] A, int n) {
+        // write code here
+        headsort(A,n);
+        return A;
+    }
+    public void headAdjust(int []A,int parent,int length){
+        int temp=A[parent];//记录父节点值
+        int children=parent*2+1;//取出子节点索引
+        while(children<length){
+            if(children+1<length&&A[children+1]>A[children]){//这里是构建大根堆
+                children++;//取两个孩子节点中最大的那个
+            }
+            if(temp>A[children]){//如果父节点大于孩子节点 则退出 这三个节点满足条件
+                break;
+            }
+	    //循环向子节点进行
+            A[parent]=A[children];
+            parent=children;
+            children=children*2+1;
+        }
+        A[parent]=temp;//把最初的父节点放回二叉树中
+    }
+    public void headsort(int []A,int n){
+        for(int i=n/2-1;i>=0;i--){//构建初始堆 从2/n开始调整二叉树
+           headAdjust(A,i,A.length);
+        }
+        //从堆里把元素一个一个取出来
+        for(int i=n-1;i>0;i--){
+            //把堆顶元素也就是最大值放到最后，然后每次进行一次堆调整
+            swap(A,0,i);
+            headAdjust(A,0,i);
+        }
+    }
+    public void swap(int []A,int a,int b){
+        int temp=A[a];
+        A[a]=A[b];
+        A[b]=temp;
+    }
+}
 
 **优点**
 
@@ -369,22 +452,22 @@ import java.util.*;
 public class RadixSort {
     public int[] radixSort(int[] A, int n) {
         // write code here
-        int[][] tmp = new int[10][n];
-        int[] count = new int[10];
+        int[][] tmp = new int[10][n];//排序桶用于保存每次排序后的结果，这一位上排序结果相同的数字放在同一个桶里
+        int[] count = new int[10];////用于保存每个桶里有多少个数字
         int i = 1;
-        while(i <1000){
+        while(i <1000){//将数组A里的每个数字放在相应的桶里
             for(int j = 0; j < n; j++){
-                int pos = A[j]/i%10;
-                tmp[pos][count[pos]++] = A[j];
+                int pos = A[j]/i%10;//某一位是多大的数字
+                tmp[pos][count[pos]++] = A[j];//
             }
             int index = 0;
-            for(int k = 0;k<10;k++){
-                for(int m = 0;m<count[k];m++){
+            for(int k = 0;k<10;k++){//将前一个循环生成的桶里的数据覆盖到原数组中用于保存这一位的排序结果
+                for(int m = 0;m<count[k];m++){//这个桶里有数据，从上到下遍历这个桶并将数据保存到原数组中
                     A[index++] = tmp[k][m];
                 }
-                count[k] = 0;
+                count[k] = 0;//将桶里计数器置0，用于下一次位排序
             }
-            i *= 10;
+            i *= 10; 
         }
         return A;
     }
