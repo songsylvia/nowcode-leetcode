@@ -1,18 +1,18 @@
-package ½£Ö¸offer;
+package å‰‘æŒ‡offer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
-/*»ñÈ¡×îĞ¡µÄk¸öÊı
- * Ë¼Â·Ò»£ºÅÅĞòºó£¬Î»ÓÚÇ°ÃæµÄk¸öÊı¾ÍÊÇ×îĞ¡µÄK¸öÊı
- * Ë¼Â·¶ş£ºpartition·½·¨¡£Ñ¡µÚk¸öÊı×÷Îªpivot£¬Èç¹û±ÈËüĞ¡·ÅËûµÄ×ó±ß£¬´ó·ÅÓÒ±ß¡£ÕâÑùµ÷ÕûÖ®ºó£¬Î»ÓÚÖĞ¼ä×ó±ßµÄk¸öÊı×Ö¾ÍÊÇ×îĞ¡µÄ
- * Ë¼Â·Èı£ºÌØ±ğÊÊºÏ´¦Àíº£Á¿Êı¾İO(nlogk):
- * ÏÈ½¨Ò»¸ösizeÎªkµÄ´ó¸ù¶Ñ£¬È»ºóÈç¹û»¹ÓĞÊıÌí¼Ó£¬Óë¶Ñ¶¥±È½Ï£¬
- * Èç¹û´óÓÚ¶Ñ¶¥£¬ËµÃ÷Õâ¸öÊı²»¿ÉÄÜÊÇ×îĞ¡µÄk¸öÊı
- * Èç¹ûĞ¡ÓÚ¶Ñ¶¥£¬Ôò°Ñ¶Ñ¶¥É¾³ı²¢°ÑÕâ¸öÊıÌí¼ÓÖÁ¶ÑÀïÃæ£¬ÖØĞÂµ÷Õû¶ÑµÄ´óĞ¡¡£
- * O(1)µÃµ½ÒÑÓĞµÄk¸öÊı×ÖÖĞ×î´óÖµ£»ÌØ±ğÓÃO(logK)Íê³ÉÉ¾³ı¼°²åÈë
- * ×ÜµÄÊ±¼ä¸´ÔÓ¶ÈÎªO(NlogK)
+/*è·å–æœ€å°çš„kä¸ªæ•°
+ * æ€è·¯ä¸€ï¼šæ’åºåï¼Œä½äºå‰é¢çš„kä¸ªæ•°å°±æ˜¯æœ€å°çš„Kä¸ªæ•°
+ * æ€è·¯äºŒï¼špartitionæ–¹æ³•ã€‚é€‰ç¬¬kä¸ªæ•°ä½œä¸ºpivotï¼Œå¦‚æœæ¯”å®ƒå°æ”¾ä»–çš„å·¦è¾¹ï¼Œå¤§æ”¾å³è¾¹ã€‚è¿™æ ·è°ƒæ•´ä¹‹åï¼Œä½äºä¸­é—´å·¦è¾¹çš„kä¸ªæ•°å­—å°±æ˜¯æœ€å°çš„
+ * æ€è·¯ä¸‰ï¼šç‰¹åˆ«é€‚åˆå¤„ç†æµ·é‡æ•°æ®O(nlogk):
+ * å…ˆå»ºä¸€ä¸ªsizeä¸ºkçš„å¤§æ ¹å †ï¼Œç„¶åå¦‚æœè¿˜æœ‰æ•°æ·»åŠ ï¼Œä¸å †é¡¶æ¯”è¾ƒï¼Œ
+ * å¦‚æœå¤§äºå †é¡¶ï¼Œè¯´æ˜è¿™ä¸ªæ•°ä¸å¯èƒ½æ˜¯æœ€å°çš„kä¸ªæ•°
+ * å¦‚æœå°äºå †é¡¶ï¼Œåˆ™æŠŠå †é¡¶åˆ é™¤å¹¶æŠŠè¿™ä¸ªæ•°æ·»åŠ è‡³å †é‡Œé¢ï¼Œé‡æ–°è°ƒæ•´å †çš„å¤§å°ã€‚
+ * O(1)å¾—åˆ°å·²æœ‰çš„kä¸ªæ•°å­—ä¸­æœ€å¤§å€¼ï¼›ç‰¹åˆ«ç”¨O(logK)å®Œæˆåˆ é™¤åŠæ’å…¥
+ * æ€»çš„æ—¶é—´å¤æ‚åº¦ä¸ºO(NlogK)
  * 
  * 
  * 
@@ -20,7 +20,7 @@ import java.util.PriorityQueue;
  */
 public class topk40 {
 	public ArrayList<Integer> GetLeastNumbers_Solution(int [] input, int k) {
-		ArrayList<Integer> res = new ArrayList<>();//ÕâÊÇÅ£¿ÍÍøÉÏË¢ÌâÊ±ÒªÇóµÄ·½·¨
+		ArrayList<Integer> res = new ArrayList<>();//è¿™æ˜¯ç‰›å®¢ç½‘ä¸Šåˆ·é¢˜æ—¶è¦æ±‚çš„æ–¹æ³•
 		if(input == null||input.length<=0||k>input.length){
 			return res;
 		}
@@ -29,7 +29,7 @@ public class topk40 {
 
 			@Override
 			public int compare(Integer o1, Integer o2) {
-				// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+				// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 				return o2 -o1;
 			}
 		}
@@ -53,16 +53,16 @@ public class topk40 {
 	public static void main(String[] args) {
 	}
 }
-/*ÃæÊÔÊ±Èç¹û²»ÄÜÓÃÓÅÏÈ¼¶¶ÓÁĞµÄ»°
+/*é¢è¯•æ—¶å¦‚æœä¸èƒ½ç”¨ä¼˜å…ˆçº§é˜Ÿåˆ—çš„è¯
  * public ArrayList<Integer> GetLeastNumbers_Solution(int [] input, int k) {
         ArrayList<Integer> res = new ArrayList<>();
         if (input == null ||input.length<=0||k>input.length)return res;
-        //¹¹½¨×î´ó¶Ñ
+        //æ„å»ºæœ€å¤§å †
         for(int len =k/2-1;len >= 0;len--){
             adjustMaxHeap(input,len,k-1);
         }
-        //´ÓµÚk¸öÔªËØ¿ªÊ¼·Ö±ğÓÚ×î´ó¶ÑµÄ×î´óÖµ½øĞĞ±È½Ï£¬Èç¹ûĞ¡£¬¾Í½»»»¸ÃÖµÓë×î´ó¶ÑµÄ×î´óÖµ£¬
-        //×îÖÕ¶ÑÀïµÄ¾ÍÊÇ×îĞ¡µÄk¸öÊı
+        //ä»ç¬¬kä¸ªå…ƒç´ å¼€å§‹åˆ†åˆ«äºæœ€å¤§å †çš„æœ€å¤§å€¼è¿›è¡Œæ¯”è¾ƒï¼Œå¦‚æœå°ï¼Œå°±äº¤æ¢è¯¥å€¼ä¸æœ€å¤§å †çš„æœ€å¤§å€¼ï¼Œ
+        //æœ€ç»ˆå †é‡Œçš„å°±æ˜¯æœ€å°çš„kä¸ªæ•°
         for(int i = k;i<input.length;i++){
             if (input[i]<input[0]){
                 int temp = input[0];
@@ -71,20 +71,20 @@ public class topk40 {
                 adjustMaxHeap(input ,0,k-1);
             }
         }
-        //½«µ÷ÕûºÃµÄÇ°k¸öÊı·Å½øÁ´±íÖĞ
+        //å°†è°ƒæ•´å¥½çš„å‰kä¸ªæ•°æ”¾è¿›é“¾è¡¨ä¸­
         for (int j = 0;j<k;j++){
             res.add(input[j]);
         }
         return res;
     }
-    //¹¹½¨´ó¶¥¶Ñ
+    //æ„å»ºå¤§é¡¶å †
     public void adjustMaxHeap(int[]input,int pos,int length){
-        int temp;//ÏÈ°Ñ×îÉÏÃæ¸ù½Úµã±£´æÁË
+        int temp;//å…ˆæŠŠæœ€ä¸Šé¢æ ¹èŠ‚ç‚¹ä¿å­˜äº†
         int child;
         for (temp = input[pos];2*pos+1<=length;pos= child){
             child = 2*pos+1;
-            //child ¿ÉÒÔµÈÓÚlengthµ«ÊÇÏÂÃæµÄ³ÌĞò²»ÄÜ£¬ÎÒÃÇ»¹ÒªÅĞ¶Ïchild ºÍchild+1ÄØ
-            //ÕÒ×î´óµÄ×Ó½ÚµãÓë¸¸½Úµã±È½Ï£¬Èç¹û×Ó½Úµã´óÓÚ¸¸½ÚµãÔò½»»»,·ñÔòÔòÍË³ö
+            //child å¯ä»¥ç­‰äºlengthä½†æ˜¯ä¸‹é¢çš„ç¨‹åºä¸èƒ½ï¼Œæˆ‘ä»¬è¿˜è¦åˆ¤æ–­child å’Œchild+1å‘¢
+            //æ‰¾æœ€å¤§çš„å­èŠ‚ç‚¹ä¸çˆ¶èŠ‚ç‚¹æ¯”è¾ƒï¼Œå¦‚æœå­èŠ‚ç‚¹å¤§äºçˆ¶èŠ‚ç‚¹åˆ™äº¤æ¢,å¦åˆ™åˆ™é€€å‡º
             if (child <length&&input[child]<input[child+1]){
                 child++;
             }
@@ -106,7 +106,7 @@ public class topk40 {
 
 
 
-/*±ÊÊÔ×î¿ìËÙ¶È£¬µ«²»ÊÇ×î¼Ñ·½·¨
+/*ç¬”è¯•æœ€å¿«é€Ÿåº¦ï¼Œä½†ä¸æ˜¯æœ€ä½³æ–¹æ³•
 import java.util.Scanner;
 
 public class topk40{
