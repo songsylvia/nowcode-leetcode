@@ -1,11 +1,11 @@
-package ½£Ö¸offer;
+package å‰‘æŒ‡offer;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-/*»ñÈ¡Êı¾İÁ÷ÖĞµÄÖĞÎ»Êı
- * Ë¼Â·£º½¨Á¢´ó¸ù¶ÑÓëĞ¡¸ù¶Ñ£¬ÖĞÎ»ÊıÎª¶Ñ¶¥ÔªËØµÄÆ½¾ùÖµ
- * ÓÃµ½priorityQueueÀ´½¨¶Ñ¡££¨topk½£Ö¸offerµÚÒ²ÓÃµ½£©
+/*è·å–æ•°æ®æµä¸­çš„ä¸­ä½æ•°
+ * æ€è·¯ï¼šå»ºç«‹å¤§æ ¹å †ä¸å°æ ¹å †ï¼Œä¸­ä½æ•°ä¸ºå †é¡¶å…ƒç´ çš„å¹³å‡å€¼
+ * ç”¨åˆ°priorityQueueæ¥å»ºå †ã€‚ï¼ˆtopkå‰‘æŒ‡offerç¬¬ä¹Ÿç”¨åˆ°ï¼‰
  * 
  */
 public class GetMedian {
@@ -16,10 +16,10 @@ public class GetMedian {
 		}
 	});
 	int count = 0;
-	public void Insert(Integer num){//ÎªÊ²Ã´ÓÃinteger
+	public void Insert(Integer num){//ä¸ºä»€ä¹ˆç”¨integer
 		count++;
 		if(count%2==0){
-			//Èç¹ûÊÇÅ¼Êı
+			//å¦‚æœæ˜¯å¶æ•°
 			if(!maxheap.isEmpty()&&num<maxheap.peek()){
 				maxheap.offer(num);
 				num = maxheap.poll();
