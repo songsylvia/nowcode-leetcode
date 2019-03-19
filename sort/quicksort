@@ -1,0 +1,75 @@
+经典快排
+public class quicksort{
+    public int[]quicksort(int []A,int n){
+        if(A==null||n==0){
+        return A;
+        }
+        sort(A,0,n-1);
+        returnA;
+        }
+     public void sort(int[]A,int low,int high){
+          if(low<high){
+          int pi =partirion(A,low,high);
+          sort(A,low,pi-1);
+          sort(A,pi+1，high)；
+          }
+      }
+      public int partition（int[]A,int low,int high）{
+          int pivot = A[high];
+          int i = (low-1);//装小于
+          for(int j =low;j<high;j++){
+          if(A[j]<=pivot){
+            i++;
+            int temp = A[i];
+            A[i] =A[j];
+            A[j] = temp;
+          }
+          }
+          //交换A[i+1]和A[high],大于的放右边
+          int temp = A[i+1];
+          A[i+1] = A[high];
+          A[high] = temp;
+          return A;
+       }
+    }
+**改进后：分成三个部分<部分，=部分，>部分**
+
+public static void quickSort(int[] arr) {
+		if (arr == null || arr.length < 2) {
+			return;
+		}
+		quickSort(arr, 0, arr.length - 1);
+	}
+
+	public static void quickSort(int[] arr, int l, int r) {
+		if (l < r) {//一定要写l<r
+			//随机快排复杂度为O(NlogN)
+			swap(arr, l + (int) (Math.random() * (r - l + 1)), r);//这一行可以忽略
+			int[] p = partition(arr, l, r);
+			quickSort(arr, l, p[0] - 1);//p[0]是等于区域第一个数
+			quickSort(arr, p[1] + 1, r);//p[1]是等于区域最后一个数
+		}
+	}
+	//经典版，《=放左边，》放右边
+//改进版<放左边，=放中间，>放右边（荷兰国旗问题）
+	public static int[] partition(int[] arr, int l, int r) {
+		int less = l - 1;
+		int more = r;//这里写成int more= r+1;int num= arr[r]
+		while (l < more) {
+			if (arr[l] < arr[r]) {
+				swap(arr, ++less, l++);
+			} else if (arr[l] > arr[r]) {
+				swap(arr, --more, l);
+			} else {
+				l++;
+			}
+		}
+		swap(arr, more, r);//交换more与r这个位置，让选的x=r放中间来，大于放右边
+		return new int[] { less + 1, more };//返回的是等于区域的下标
+	}
+
+	public static void swap(int[] arr, int i, int j) {
+		int tmp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = tmp;
+	}
